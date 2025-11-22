@@ -13,20 +13,22 @@ class SvnExportControl:
     設定に従ってSVNエクスポートコマンドを管理するクラス（基底クラス）
     """
     
-    def __init__(self, repository_url: str, target_path: str, force_overwrite: bool = False) -> None:
+    def __init__(self, name: str, repository_url: str, target_path: str, force_overwrite: bool = False) -> None:
         """
         SvnExportControlを初期化
         
         Args:
+            name (str): 制御オブジェクトの名前
             repository_url (str): SVNリポジトリのURL
             target_path (str): エクスポート先のパス
             force_overwrite (bool): 既存ディレクトリを上書きするかどうか
         """
+        self.name = name
         self.repository_url = repository_url
         self.target_path = target_path
         self.force_overwrite = force_overwrite
         
-        logger.info("SvnExportControl初期化: %s -> %s", repository_url, target_path)
+        logger.info("SvnExportControl初期化: %s (%s -> %s)", name, repository_url, target_path)
     
     def update(self):
         """
@@ -62,10 +64,10 @@ class SvnExportControl:
     
     def __str__(self) -> str:
         """文字列表現"""
-        return "SvnExportControl(%s -> %s)" % (self.repository_url, self.target_path)
+        return "SvnExportControl(%s: %s -> %s)" % (self.name, self.repository_url, self.target_path)
     
     def __repr__(self) -> str:
         """詳細文字列表現"""
-        return "SvnExportControl(repository_url='%s', target_path='%s', force_overwrite=%s)" % (
-            self.repository_url, self.target_path, self.force_overwrite
+        return "SvnExportControl(name='%s', repository_url='%s', target_path='%s', force_overwrite=%s)" % (
+            self.name, self.repository_url, self.target_path, self.force_overwrite
         )

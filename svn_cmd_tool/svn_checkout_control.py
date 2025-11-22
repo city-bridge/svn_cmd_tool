@@ -13,18 +13,20 @@ class SvnCheckoutControl:
     設定に従ってSVNコマンドを管理するクラス
     """
     
-    def __init__(self, repository_url: str, target_path: str) -> None:
+    def __init__(self, name: str, repository_url: str, target_path: str) -> None:
         """
         SvnCheckoutControlを初期化
         
         Args:
+            name (str): 制御オブジェクトの名前
             repository_url (str): SVNリポジトリのURL
             target_path (str): チェックアウト先のパス
         """
+        self.name = name
         self.repository_url = repository_url
         self.target_path = target_path
         
-        logger.info("SvnCheckoutControl初期化: %s -> %s", repository_url, target_path)
+        logger.info("SvnCheckoutControl初期化: %s (%s -> %s)", name, repository_url, target_path)
     
     def update(self) -> None:
         """
@@ -59,10 +61,10 @@ class SvnCheckoutControl:
     
     def __str__(self) -> str:
         """文字列表現"""
-        return "SvnCheckoutControl(%s -> %s)" % (self.repository_url, self.target_path)
+        return "SvnCheckoutControl(%s: %s -> %s)" % (self.name, self.repository_url, str(self.target_path))
     
     def __repr__(self) -> str:
         """詳細文字列表現"""
-        return "SvnCheckoutControl(repository_url='%s', target_path='%s')" % (
-            self.repository_url, self.target_path
+        return "SvnCheckoutControl(name='%s', repository_url='%s', target_path='%s')" % (
+            self.name, self.repository_url, str(self.target_path)
         )
